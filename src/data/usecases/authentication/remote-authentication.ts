@@ -1,5 +1,5 @@
-import { AuthenticationParams } from 'damain/usecases/authentication';
-import { HttpPostClient } from 'data/protocols/http/http-post-client';
+import { AuthenticationParams } from '@/damain/usecases/authentication';
+import { HttpPostClient } from '@/data/protocols/http/http-post-client';
 
 export class RemoteAuthentication {
   constructor(
