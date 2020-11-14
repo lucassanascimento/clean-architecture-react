@@ -1,7 +1,8 @@
 import { AuthenticationParams } from '@/damain/usecases/authentication';
 import { HttpPostClient } from '@/data/protocols/http/http-post-client';
 import { HttpStatusCode } from '@/data/protocols/http/http-response';
-import { InvalidCredentialsError } from '../../../damain/errors/invalid-credentials-error';
+import { InvalidCredentialsError } from '@/damain/errors/invalid-credentials-error';
+import { UnexpectedError } from '@/damain/errors/unexpected-error';
 
 export class RemoteAuthentication {
   constructor(
@@ -15,8 +16,9 @@ export class RemoteAuthentication {
       body: params
     });
     switch(httpResponse.statusCode) {
+      case HttpStatusCode.ok: break
       case HttpStatusCode.anathorized: throw new InvalidCredentialsError()
-      default: return Promise.resolve()
+      default: throw new UnexpectedError()
     }
   }
 }
