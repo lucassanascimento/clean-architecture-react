@@ -1,11 +1,10 @@
 import { RemoteAuthentication } from './remote-authentication'
-import { HttpPostClientSpy } from '@/data/test/mock-http-client'
-import { mockAccountModel, mockAuthentication } from '@/damain/test/mock-account';
-import { InvalidCredentialsError } from '@/damain/errors/invalid-credentials-error';
+import { HttpPostClientSpy } from '@/data/test'
+import { mockAccountModel, mockAuthentication } from '@/damain/test';
+import { UnexpectedError, InvalidCredentialsError } from '@/damain/errors';
 import { HttpStatusCode } from '@/data/protocols/http/http-response';
-import { UnexpectedError } from '@/damain/errors/unexpected-error';
-import { AuthenticationParams } from '@/damain/usecases/authentication';
-import { AccountModel } from '@/damain/models/account-model';
+import { AuthenticationParams } from '@/damain/usecases';
+import { AccountModel } from '@/damain/models';
 import faker from 'faker'
 
 
