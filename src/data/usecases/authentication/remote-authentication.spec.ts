@@ -3,16 +3,18 @@ import { HttpPostClientSpy } from '@/data/test/mock-http-client'
 import { mockAuthentication } from '@/damain/test/mock-authentication';
 import { InvalidCredentialsError } from '@/damain/errors/invalid-credentials-error';
 import { HttpStatusCode } from '@/data/protocols/http/http-response';
+import { UnexpectedError } from '@/damain/errors/unexpected-error';
+import { AuthenticationParams } from '@/damain/usecases/authentication';
+import { AccountModel } from '@/damain/models/account-model';
 import faker from 'faker'
-import { UnexpectedError } from '../../../damain/errors/unexpected-error';
 
 
 type SutTypes = {
   sut: RemoteAuthentication
-  httpPostClientSpy: HttpPostClientSpy
+  httpPostClientSpy: HttpPostClientSpy<AuthenticationParams, AccountModel>
 }
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
-  const httpPostClientSpy = new HttpPostClientSpy()
+  const httpPostClientSpy = new HttpPostClientSpy<AuthenticationParams, AccountModel>()
   const sut = new RemoteAuthentication(url, httpPostClientSpy)
   return {
     sut,
