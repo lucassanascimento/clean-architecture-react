@@ -1,23 +1,23 @@
-import { AuthenticationParams } from '@/damain/usecases/authentication';
+import { AuthenticationParams, Authetication } from '@/damain/usecases/authentication';
 import { HttpPostClient } from '@/data/protocols/http/http-post-client';
 import { HttpStatusCode } from '@/data/protocols/http/http-response';
 import { InvalidCredentialsError } from '@/damain/errors/invalid-credentials-error';
 import { UnexpectedError } from '@/damain/errors/unexpected-error';
 import { AccountModel } from '@/damain/models/account-model';
 
-export class RemoteAuthentication {
+export class RemoteAuthentication implements Authetication {
   constructor(
     private readonly url: string,
     private readonly httpPostClient: HttpPostClient<AuthenticationParams, AccountModel>
   ) {}
 
-  async auth(params: AuthenticationParams): Promise<void> {
+  async auth(params: AuthenticationParams): Promise<AccountModel> {
    const httpResponse = await this.httpPostClient.post({
       url: this.url,
       body: params
     });
     switch(httpResponse.statusCode) {
-      case HttpStatusCode.ok: break
+      case HttpStatusCode.ok: return httpResponse.body
       case HttpStatusCode.anathorized: throw new InvalidCredentialsError()
       default: throw new UnexpectedError()
     }
