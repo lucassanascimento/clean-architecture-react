@@ -1,38 +1,37 @@
 import { AxiosHttpClient } from './axios-http-client';
-import { httpPostParams } from '@/data/protocols/http/http-post-client';
-import axios from 'axios'
-import faker from 'faker'
+import { mockAxios } from '@/infra/test';
+import axios from 'axios';
+import { mockPostResquest } from '@/data/test/mock-http-post';
 
-jest.mock('axios')
-const mockedAxios = axios as jest.Mocked<typeof axios>
-const mockedAxiosResult = {
-  data: faker.random.objectElement(),
-  status: faker.random.number()
-}
-mockedAxios.post.mockResolvedValue(mockedAxiosResult)
+jest.mock('axios');
 
-const makeSut = (): AxiosHttpClient => {
-  return new AxiosHttpClient()
-}
 
-const mockPostResquest = (): httpPostParams<any> => ({
-  url: faker.internet.url(),
-  body: faker.random.objectElement()
-})
+type SutType = {
+  sut: AxiosHttpClient;
+  mockedAxios: jest.Mocked<typeof axios>;
+};
+mockPostResquest()
+const makeSut = (): SutType => {
+  const sut = new AxiosHttpClient();
+  const mockedAxios = mockAxios();
+  return {
+    sut,
+    mockedAxios,
+  };
+};
+
+
 describe('AxiosHttpClient', () => {
   test('Should call axios with correct values', async () => {
-    const request = mockPostResquest()
-    const sut = makeSut()
-    await sut.post(request)
-    expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body)
+    const request = mockPostResquest();
+    const { sut, mockedAxios } = makeSut();
+    await sut.post(request);
+    expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body);
   });
 
-  test('Should return the correct statusCode and body', async () => {
-    const sut = makeSut()
-    const httpResponse = await sut.post(mockPostResquest())
-    expect(httpResponse).toEqual({
-      statusCode: mockedAxiosResult.status, 
-      body: mockedAxiosResult.data
-    })
+  test('Should return the correct statusCode and body',  () => {
+    const { sut, mockedAxios } = makeSut();
+    const promise =  sut.post(mockPostResquest());
+    expect(promise).toEqual(mockedAxios.post.mock.results[0].value);
   });
 });
