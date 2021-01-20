@@ -1,0 +1,6 @@
+export { default as Footer } from '../components/footer/footer'
+export { default as FormStatus } from '../components/form-status/form-status'
+export { default as Input } from '../components/input/input'
+export { default as LoginHeader } from '../components/login-header/login-header'
+export { default as Logo } from '../components/logo/logo'
+export { default as Spinner } from '../components/spinner/spinner'
