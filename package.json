@@ -1,8 +1,9 @@
 {
   "name": "clean-react",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
+  "author": "Rodrigo Manguinho",
+  "license": "GNU GPL3",
   "scripts": {
     "start": "webpack-dev-server --open",
     "test": "jest --passWithNoTests --no-cache --runInBand",
@@ -11,13 +12,14 @@
     "test:ci": "npm test -- --coverage"
   },
   "devDependencies": {
+    "@testing-library/react": "^10.0.4",
     "@types/axios": "^0.14.0",
     "@types/faker": "^4.1.11",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.5",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.7",
+    "@types/react-router-dom": "^5.1.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.5.3",

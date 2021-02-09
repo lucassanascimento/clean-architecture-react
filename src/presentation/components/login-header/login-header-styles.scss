@@ -1,4 +1,4 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
 .header {
   display: flex;
@@ -10,6 +10,7 @@
   img {
     margin-top: 40px;
   }
+
   h1 {
     color: $white;
     margin: 16px 0px 40px;
